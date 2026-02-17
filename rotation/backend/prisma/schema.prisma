@@ -90,4 +90,5 @@ model Interaction {
   @@index([itemId])
   @@index([type])
   @@index([createdAt])
+
 }
