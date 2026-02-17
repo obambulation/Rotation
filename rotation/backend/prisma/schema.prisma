@@ -1,0 +1,92 @@
+// prisma/schema.prisma
+// Define your database models
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum itemStatus {
+  WISHLIST
+  OWNED
+  SAVED
+}
+
+enum itemCatagory {
+  LONGSLEEVETSHIRT
+  POLOSHIRT
+  SHORTSLEEVETSHIRT
+  SWEATER
+  SWEATSHIRT
+  SLEEBELESS
+  PANTS
+  DENIMPANTS
+  LEGGINGS
+  SHORTS
+  SWEATPANTS
+  JACKET
+}
+
+enum gender {
+  MALE
+  FEMALE
+  UNISEX
+}
+
+enum interactionType {
+  VIEW
+  CLICK
+  SAVE
+}
+
+model User {
+  id    String     @id @default(uuid()) @db.Uuid
+  displayName String @unique
+  email String  @unique
+  phoneNumber String @unique
+  createdAt DateTime @default(now())
+  
+  items Item[]
+  interactions Interaction[]
+}
+
+model Item {
+  id String @id @default(uuid()) @db.Uuid
+  brandName String?
+  price Decimal @db.Decimal(10, 2)
+  status itemStatus
+  imageUrls String[]
+  productUrl String
+  catagory itemCatagory
+  gender gender
+
+  userId String @db.Uuid
+  user User @relation(fields: [userId], references: [id])
+  interactions Interaction[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([catagory])
+
+}
+
+model Interaction {
+  id String @id @default(uuid()) @db.Uuid
+  type interactionType
+  createdAt DateTime @default(now())
+
+  userId String @db.Uuid
+  itemId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@index([userId])
+  @@index([itemId])
+  @@index([type])
+  @@index([createdAt])
+}
