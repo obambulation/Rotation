@@ -9,9 +9,9 @@ export const createRateLimiter = (
         limit,
         standardHeaders: 'draft-8',
         legacyHeaders: false,
-        ipv6Subnet: 52
+        ipv6Subnet: 52,
+        message: "Too many requests, please try again later."
     })
 }
 
-
-const limiter = rateLimt({})
+export default createRateLimiter;

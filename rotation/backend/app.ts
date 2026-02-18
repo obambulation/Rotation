@@ -1,29 +1,23 @@
-// index.ts
-// Query your database using the Prisma Client
+import helmet from "helmet";
+import cors from "cors";
+import express from "express";
 
-import 'dotenv/config'
-import { PrismaClient } from "./generated/prisma/client.js";
-import { PrismaPg } from "@prisma/adapter-pg";
+export const app = express();
 
-const connectionString = process.env.DATABASE_URL;
+app.set('trust proxy', 1);
 
-const adapter = new PrismaPg({ connectionString });
-const prisma = new PrismaClient({ adapter });
+app.use(helmet());
+app.use(cors({
+    origin: process.env["CORS_ORIGIN"] || "http://localhost:3000",
+    credentials: true,
+}))
 
-// Example query to create a user based on the example schema
+app.get("/health", (_, res) => {
+  res.json({ status: "fuckkk" });
+});
 
-async function main() {
+app.use(express.json());
 
+console.log("APP.TS LOADED"); // Add this line
 
-}
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
-
+export default app;
