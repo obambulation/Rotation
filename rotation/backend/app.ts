@@ -12,12 +12,13 @@ app.use(cors({
     credentials: true,
 }))
 
-app.get("/health", (_, res) => {
-  res.json({ status: "fuckkk" });
+app.get("/", (req, res) => {
+  res.json({ ip: req.ip, status: "fuck you mean"
+   });
 });
 
 app.use(express.json());
 
-console.log("APP.TS LOADED"); // Add this line
+console.log("APP.TS LOADED"); 
 
 export default app;
