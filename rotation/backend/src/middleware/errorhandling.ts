@@ -8,6 +8,7 @@ const errorhandling = (
     next: NextFunction
 ) => {
     if (res.headersSent) {
+        console.error({msg: "Unexpected error", err, path: req.path});
         return next(err);
     } 
     if (err instanceof AppError) {
