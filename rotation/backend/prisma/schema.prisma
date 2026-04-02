@@ -2,8 +2,7 @@
 // Define your database models
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -48,8 +47,10 @@ model User {
   displayName String?
   username String  @unique
   email String  @unique
-  phoneNumber String @unique
+  phoneNumber String? @unique
+  password String
   createdAt DateTime @default(now())
+  lastLogin DateTime @default(now())
   
   items Item[]
   interactions Interaction[]

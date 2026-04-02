@@ -1,6 +1,9 @@
 import helmet from "helmet";
 import cors from "cors";
 import express from "express";
+import dotenv from "dotenv";
+import { authrouter } from "./src/routes/authroutes";
+
 
 export const app = express();
 
@@ -12,12 +15,12 @@ app.use(cors({
     credentials: true,
 }))
 
-app.get("/", (req, res) => {
-  res.json({ ip: req.ip, status: "fuck you mean"
-   });
-});
+
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Mount auth routes
+app.use('/auth', authrouter);
 
 console.log("APP.TS LOADED"); 
 
