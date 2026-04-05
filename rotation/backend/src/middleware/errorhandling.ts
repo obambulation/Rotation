@@ -1,5 +1,6 @@
-import {NextFunction, Request, Response} from "express";
-import AppError from "../utils/apperror";
+import type {NextFunction, Request, Response} from "express";
+import AppError from "../utils/apperror.js";
+import { Prisma } from "@prisma/client";
 
 const errorhandling = (
     err: any,
@@ -16,6 +17,7 @@ const errorhandling = (
             error: err.message
         })
         
+        
     }
 };
 
@@ -28,4 +30,10 @@ const prismaErrorHandling = (err: any) => {
     }
 }
 
-export default {errorhandling, prismaErrorHandling};
+function instanceAppError(err: any) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new AppError("db err", 500, false);
+    }
+}
+
+export default {errorhandling, prismaErrorHandling, instanceAppError};

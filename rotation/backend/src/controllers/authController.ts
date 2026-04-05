@@ -1,7 +1,5 @@
-import { signup as signupService, login as loginService} from "../services/authservices";
-import AppError from "../utils/apperror";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import { signup as signupService, login as loginService} from "../services/authservices.js";
+import AppError from "../utils/apperror.js";
 
 export async function signup(req: any, res: any) {
     const { email, username, password, phoneNumber } = req.body;
@@ -26,4 +24,11 @@ export async function login(req: any, res: any) {
     res.status(200).json({message: logged.User.phoneNumber, token: logged.token});
     console.log(logged);
 
+}
+
+export async function getMe(req: any, res: any) {
+    if(!req.user){
+        throw new AppError("Unauthorized", 401);
+    }
+    res.status(200).json({message: "User info retrieved successfully", user: req.user});
 }

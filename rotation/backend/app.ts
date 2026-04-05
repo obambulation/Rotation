@@ -4,7 +4,6 @@ import express from "express";
 import dotenv from "dotenv";
 import { authrouter } from "./src/routes/authroutes";
 
-
 export const app = express();
 
 app.set('trust proxy', 1);

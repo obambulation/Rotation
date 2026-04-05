@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import AppError from "../utils/apperror";
-import prisma from "../lib/prisma";
+import AppError from "../utils/apperror.js";
+import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
 
 
@@ -12,7 +12,7 @@ type authInput = {
 }
 
 export async function signup(data: authInput) {
-
+        console.log("AUTH DATA:", data);
         const user = await prisma.user.findFirst({
             where: {
                 OR: [
