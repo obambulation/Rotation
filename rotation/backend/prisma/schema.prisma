@@ -58,11 +58,12 @@ model User {
 
 model Item {
   id String @id @default(uuid()) @db.Uuid
-  brandName String?
+  brandName String
+  itemName String?
   price Decimal @db.Decimal(10, 2)
   status itemStatus
   imageUrls String[]
-  productUrl String
+  productUrl String?
   catagory itemCatagory
   gender gender
 
