@@ -15,13 +15,13 @@ enum itemStatus {
   SAVED
 }
 
-enum itemCatagory {
+enum itemCategory {
   LONGSLEEVETSHIRT
   POLOSHIRT
   SHORTSLEEVETSHIRT
   SWEATER
   SWEATSHIRT
-  SLEEBELESS
+  SLEEVELESS
   PANTS
   DENIMPANTS
   LEGGINGS
@@ -64,7 +64,7 @@ model Item {
   status itemStatus
   imageUrls String[]
   productUrl String?
-  catagory itemCatagory
+  category itemCategory
   gender gender
 
   userId String @db.Uuid
@@ -73,7 +73,7 @@ model Item {
 
   @@index([userId])
   @@index([status])
-  @@index([catagory])
+  @@index([category])
 
 }
 
